@@ -88,11 +88,11 @@ int main(void)
 							exit(EXIT_SUCCESS);
 						}
 					}
-					else{
-						//too lazy to implement the true booyer-moore algo, just start at found+1.
-						file = found++;
-						memchrsize = found - original;
-					}
+
+					//too lazy to implement the true booyer-moore algo, just start at found+1.
+					file = found++;
+					memchrsize = found - original;
+					
 				}
 				else{
 					/* TODO, time to abstract the unmapping and remapping ... */
