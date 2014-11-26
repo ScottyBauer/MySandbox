@@ -19,6 +19,8 @@ static void* my_memmove(void* _src, void* _dest, size_t amount)
 	
 	/* copy backwards */
 	if(dest > src) {
+		src += (amount-1);
+		dst += (amount-1);
 		while(amount--){
 			*dest = *src;
 			dest--;
