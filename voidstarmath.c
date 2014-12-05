@@ -17,7 +17,7 @@ int main(void)
 	assert(sizeof(char*) == 4);
 	
 	assert(vlocation == clocation);
-	printf("vlocation %p and cloation %p\n", vlocaiton+1, clocation+4);
+	printf("vlocation %p and cloation %p\n", vlocation+1, clocation+4);
 	assert((vlocation+1) == (clocation+4));
 	assert((vlocation+4) == (clocation+16));
 	return EXIT_SUCCESS;
