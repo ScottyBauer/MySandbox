@@ -18,6 +18,11 @@
 
 //extern const int BUFSIZE;
 
+
+/* compile with:
+ gcc -std=gnu99 -march=native -fbranch-probabilities -ftracer -fprefetch-loop-arrays -O3
+*/
+
 void nibble_sort_scotty(unsigned long *buf);
 
 
@@ -26,82 +31,16 @@ static inline unsigned long create_mask(char amount, char type, char location)
 	unsigned long all = type;
 	int i;
 
-	/* force GCC to vectorize only way I could get it to do it */
 	switch(amount){
 	case 0:
 		return 0;
-	case 1:
-		return (all << location);
-	case 2:
-		return (((all << 4) | type) << location);
-	case 3:
-		for(i=0; i < 2; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 4:
-		for(i=0; i < 3; i++){
-			all = ((all << 4) | type);
-				}
-		return all << location;
-	case 5:
-		for(i=0; i < 4; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 6:
-		for(i=0; i < 5; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 7:
-		for(i=0; i < 6; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 8:
-		for(i=0; i < 7; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 9:
-		for(i=0; i < 8; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 10:
-		for(i=0; i < 9; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 11:
-		for(i=0; i < 10; i++){
-			all = ((all << 4) | type);
-				}
-		return all << location;
-	case 12:
-		for(i=0; i < 11; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 13:
-		for(i=0; i < 12; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 14:
-		for(i=0; i < 13; i++){
-			all = ((all << 4) | type);
-		}
-		return all << location;
-	case 15:
-		for(i=0; i < 14; i++){
-			all = all = ((all << 4) | type);
-				}
-		return all << location;
 	default:
-		__builtin_abort();
+		for(i=0; i < amount-1; i++){
+			all = ((all << 4) | type);
+		}
+		return all << location;
 	}
+
 }
 
 static inline unsigned long write_new(__m128i read)
